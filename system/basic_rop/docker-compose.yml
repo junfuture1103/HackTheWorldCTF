@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        IMAGE: ubuntu:18.04
+        IMAGE: ubuntu:20.04
         USER: basic_rop
         TIMEOUT: 60
         EXEC: basic_rop
